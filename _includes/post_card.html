@@ -1,0 +1,13 @@
+  <div class="card col-md-12 col-sm-12 col-xs-12 mb-3 border-light p-0">
+    <img src="{{ post.image }}" class="card-img-top" alt="..." >
+    <div class="card-body">
+      <time class="date-callout" datetime="{{ post.date | date: "%F" }}">
+        <div class="date-wrapper">
+          <p>{{ post.date | date: "%b" }}</p>
+          <h5>{{ post.date | date: "%e" }}</h5>
+        </div>
+      </time>
+      <h5 class="card-title">{{ post.title }}</h5>
+      <p class="card-text">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+    </div>
+  </div>

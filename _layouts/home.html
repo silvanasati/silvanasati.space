@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/assets/css/main.css" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <style>
+      body {
+        background-color: #f8f8f8;
+      }
+
+      .date-callout {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+        display: block;
+        margin-top: -20px;
+      }
+
+      .date-wrapper {
+        width: 60px;
+        height: 60px;
+        color: #fefefe;
+        text-transform: uppercase;
+        border-radius: 999px;
+        background: #000;
+        padding: 8px;
+        box-sizing: border-box;
+        border-radius: 999px;
+        text-align: center;
+        top: 55%;
+        -webkit-transform: translatey(-50%);
+        -moz-transform: translatey(-50%);
+        -ms-transform: translatey(-50%);
+        -o-transform: translatey(-50%);
+        transform: translatey(-50%);
+      }
+
+      .date-wrapper p {
+        margin: 0;
+      }
+
+      .date-wrapper h5 {
+        margin: 0;
+        line-height: 0.8;
+      }
+    </style>
+
+    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }} – {{ site.description }}</title>
+  </head>
+  <body class="mt-5 pt-2">
+
+    <div class="modal fade" id="navModal" tabindex="-1" role="dialog" aria-labelledby="navModal" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <a href="/">Home</a>
+          </div>
+          <div class="modal-footer border-0">
+            <h2 class="text-center">@silvanasati</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pos-f-t">
+      <nav class="navbar navbar-light bg-light fixed-top">
+        <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#navModal" aria-controls="navModal" aria-expanded="false" aria-label="Toggle modal nav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="mx-auto">
+            <h1><a class="navbar-brand" href="/">Silvana <span class="text-muted">Sati</span></a></h1>
+        </div>
+        <a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a>
+      </nav>
+    </div>
+
+    {% assign post_count = site.posts.size %}
+    {% assign columns = 3 %}
+
+    {% assign posts_by_columns = post_count | divided_by: columns %}
+    {% assign mod_posts_by_columns = post_count | modulo: columns %}
+
+    {% assign third_column_start = posts_by_columns | plus: posts_by_columns %}
+    {% assign third_column_end = third_column_start | plus: posts_by_columns %}
+
+    {% assign first_column = site.posts | slice: 0, posts_by_columns %}
+    {% assign second_column = site.posts | slice: posts_by_columns, posts_by_columns %}
+    {% assign third_column = site.posts | slice: third_column_start, posts_by_columns %}
+
+    {% assign first_column_append = third_column_end %}
+    {% assign second_column_append = first_column_append | plus: 1 %}
+    {% assign third_column_append = second_column_append | plus: 1 %}
+
+    {% if first_column_append < post_count %}
+      {% assign item = site.posts | slice: first_column_append, 1 %}
+      {% assign first_column = first_column | concat: item %}
+    {% endif %}
+
+    {% if second_column_append < post_count %}
+      {% assign item = site.posts | slice: second_column_append, 1 %}
+      {% assign second_column = second_column | concat: item %}
+    {% endif %}
+
+    {% if third_column_append <= post_count %}
+      {% assign item = site.posts | slice: third_column_append, 1 %}
+      {% assign third_column = third_column | concat: item %}
+    {% endif %}
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          {% for post in first_column %}
+            {% include post_card.html %}
+          {% endfor %}
+        </div>
+        <div class="col-md-4">
+          {% for post in second_column %}
+            {% include post_card.html %}
+          {% endfor %}
+        </div>
+        <div class="col-md-4">
+          {% for post in third_column %}
+            {% include post_card.html %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2 class="text-center">@silvanasati</h2>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
